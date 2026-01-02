@@ -1,0 +1,11 @@
+delete_user() {
+
+echo "Enter username" 
+read username 
+
+sudo userdel $username 
+
+}
+
+
+

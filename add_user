@@ -1,0 +1,48 @@
+user_add() {
+echo  "Enter the user name"
+read username
+
+grep -w "$username" /etc/passwd > /dev/null
+
+if [ $? -eq 0 ]
+then
+
+  echo "$username already exists"
+
+else
+
+echo "Enter the user password"
+read -s password
+
+pass=$(echo "$password" | openssl passwd -1 -stdin)
+
+echo "Enter the shell type"
+read shell_type
+
+echo "Enter the home directory path"
+read home_dir
+
+echo "Enter comment describe the new user"
+read cmnt
+
+sudo useradd -p $pass -s "$shell_type" -d "$home_dir" -c "$cmnt" $username
+
+echo "Days between changing the password"
+read minimum
+
+echo "How many days before the password expires"
+read pass_expiration
+
+echo "Tolerance after the password expires"
+read tolerance
+
+echo "Expiration date of the user"
+read expiration
+
+sudo chage -m "$minimum" -M "$pass_expiration" -I "$tolerance" -E "$expiration" "$username"
+
+fi
+
+}
+
+#END

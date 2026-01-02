@@ -1,0 +1,30 @@
+#!/bin/bash
+
+
+#This script to add or delete user
+
+################# Functions##############
+. /home/mostafa/scripts/add_user
+. /home/mostafa/scripts/delete_user
+
+########################################
+
+select choice in "adduser" "deleteuser" "exit"
+do 
+
+case $choice in
+
+adduser)
+  user_add
+  ;;
+deleteuser)
+ delete_user
+ ;;
+exit)
+ break
+ ;;
+ 
+*)
+ echo "invalid choice"
+esac
+done
